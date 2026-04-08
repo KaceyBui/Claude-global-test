@@ -1,0 +1,73 @@
+---
+name: campaign-plan
+description: "Lập kế hoạch campaign marketing. Đảm bảo aligned với chiến lược và mục tiêu kinh doanh. Trigger: 'campaign plan', 'lập campaign', 'kế hoạch marketing'."
+argument-hint: "<mô tả mục tiêu campaign hoặc sự kiện>"
+---
+
+# Lập Kế hoạch Campaign
+
+## Bước 1: Đọc Context
+1. Đọc chiến lược trong `strategy/` - đặc biệt target segments và positioning
+2. Đọc kế hoạch tháng marketing trong `operations/`
+3. Đọc performance data các campaign trước trong `data/` hoặc `reports/`
+
+## Bước 2: Thu thập Brief
+Hỏi Marketing Manager:
+- **Objective**: Awareness / Acquisition / Activation / Retention / Revenue?
+- **Target audience**: Segment nào?
+- **Budget**: Bao nhiêu?
+- **Timeline**: Khi nào chạy?
+- **Channels**: Kênh nào ưu tiên?
+
+## Bước 3: Strategy Alignment Check
+- Campaign phục vụ OKR nào?
+- Target audience có phù hợp với segments trong chiến lược?
+- Messaging có consistent với brand positioning?
+
+## Bước 4: Tạo Campaign Plan
+
+```markdown
+# Campaign: [Tên Campaign]
+**Objective**: [AARRR stage]
+**OKR liên quan**: [OKR-X]
+**Timeline**: DD/MM - DD/MM/YYYY
+**Budget**: [Số tiền]
+**Owner**: [Marketing Manager]
+
+## Target Audience
+- Segment: [Mô tả]
+- Pain point: [Vấn đề]
+- Channel behavior: [Ở đâu, dùng gì]
+
+## Key Message
+- **Hook**: [Câu thu hút]
+- **Value prop**: [Giá trị cốt lõi]
+- **CTA**: [Hành động mong muốn]
+
+## Channel Plan
+| Channel | Format | Budget | Target Metric | KPI |
+|---------|--------|--------|---------------|-----|
+| ...     | ...    | ...    | ...           | ... |
+
+## Content Calendar
+| Ngày | Channel | Content | Status |
+|------|---------|---------|--------|
+| ...  | ...     | ...     | Draft  |
+
+## Success Metrics
+| Metric | Baseline | Target | Method |
+|--------|----------|--------|--------|
+| ...    | ...      | ...    | ...    |
+
+## Risk & Contingency
+- [Risk]: [Plan B]
+```
+
+## Bước 5: Lưu
+- Lưu vào `operations/campaigns/YYYY-MM-[campaign-name].md`
+- Nhắc share với BO để approve budget
+
+## Quy tắc
+- Mỗi campaign PHẢI có measurable target
+- Budget allocation phải justify được bằng expected ROI
+- Messaging phải consistent với brand guidelines trong strategy

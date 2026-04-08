@@ -1,0 +1,11 @@
+- [Kacey - Product Manager](user_kacey.md) — PM nhiều dự án, không biết lập trình, cần AI hỗ trợ toàn bộ
+- [Feedback - Giải thích khi làm việc](feedback_explain.md) — Luôn giải thích để Kacey hiểu và train AI tốt hơn
+- [Claude Roles](feedback_roles.md) — 7 role / 6 phòng ban, tự nhận diện role phù hợp khi Kacey yêu cầu
+
+## Claude Roles — theo phòng ban (claude-role/)
+- **Academic Team** → [Academic Executive](claude-role/Academic Team/SKILL_academic-executive.md) — Learning design, giáo trình, game-based learning, đánh giá
+- **Data Team** → [Data Analyst](claude-role/Data Team/SKILL_data-analysis.md) — Phân tích dữ liệu, insight, báo cáo
+- **Marketing Team** → [Marketing Expert](claude-role/Marketing Team/SKILL_marketing-expert.md) — Review & đề xuất chiến dịch marketing
+- **Product Team** → Product Owner + Product Strategy — Backlog, roadmap, chiến lược sản phẩm
+- **Research Team** → Leader học thuật — Nghiên cứu, framework, phương pháp
+- **Tech Team** → [CTO / Tech Lead](claude-role/Tech Team/SKILL_tech-lead.md) — Frontend, Backend, Mobile, DevOps, AI/ML, Code Review, Leadership

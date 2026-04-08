@@ -1,0 +1,118 @@
+---
+name: campaign-plan
+description: "Lập kế hoạch campaign marketing. Đảm bảo aligned với chiến lược và mục tiêu kinh doanh. Trigger: 'campaign plan', 'lập campaign', 'kế hoạch marketing'."
+argument-hint: "<mô tả mục tiêu campaign hoặc sự kiện>"
+---
+
+# Lập Kế hoạch Campaign
+
+## Bước 1: Đọc Context (bắt buộc)
+1. Đọc `strategy/` — target segments, positioning, OKRs
+2. Đọc `data/06-marketing-sales-current.md` — lấy baseline: CAC, ROI, leads/tháng từng kênh, funnel conversion rates, brand positioning
+3. Đọc `operations/monthly/` — kế hoạch tháng hiện tại để check budget & priority
+4. Đọc `reports/marketing/` — performance các campaign trước (nếu có)
+
+## Bước 2: Thu thập Brief
+Hỏi Marketing Manager:
+- **Objective**: Awareness / Acquisition / Activation / Retention / Revenue?
+- **Funnel stage mục tiêu**: Visitors → Leads → Activated → Paying → Repeat/Upsell
+- **Target segment**: Segment nào (đối chiếu với strategy)?
+- **Budget**: Tổng bao nhiêu? Phân bổ theo kênh như thế nào?
+- **Timeline**: Ngày bắt đầu → kết thúc?
+- **Sales impact**: Campaign có hỗ trợ pipeline / deal stage nào không?
+
+## Bước 3: Strategy & Data Alignment Check
+- Campaign phục vụ OKR nào?
+- Target audience có phù hợp segments trong chiến lược?
+- Messaging có consistent với brand positioning trong `data/06-...`?
+- Kênh được chọn có CAC / ROI justify so với baseline hiện tại?
+- Nếu Sales-led hoặc Hybrid: campaign có hỗ trợ rút ngắn sales cycle không?
+
+> Nếu phát hiện xung đột với chiến lược → cảnh báo rõ trước khi tiếp tục.
+
+## Bước 4: Tạo Campaign Plan
+
+```markdown
+# Campaign: [Tên Campaign]
+**Objective**: [Funnel stage: Awareness / Acquisition / Activation / Retention / Revenue]
+**OKR liên quan**: [OKR-X]
+**Timeline**: DD/MM – DD/MM/YYYY
+**Budget**: [Tổng] — phân bổ chi tiết ở Channel Plan
+**Owner**: [Marketing Manager]
+
+## Target Audience
+- Segment: [Mô tả, đối chiếu với strategy]
+- Pain point chính: [Vấn đề]
+- Channel behavior: [Họ ở đâu, dùng gì, đọc gì]
+
+## Key Message
+- **Hook**: [Câu thu hút đầu tiên]
+- **Value prop**: [Giá trị cốt lõi — consistent với brand positioning]
+- **CTA**: [Hành động mong muốn]
+- **Tone**: [Chuyên nghiệp / Thân thiện / ... — theo brand guideline]
+
+## Channel Plan
+> Ưu tiên kênh có ROI cao và CAC thấp từ baseline trong 06-marketing-sales-current.md
+
+| Channel | Format | Budget | Target Leads | Target CAC | KPI |
+|---------|--------|--------|-------------|-----------|-----|
+| SEO / Organic | | | | | |
+| Paid Ads (Google) | | | | | |
+| Paid Ads (Facebook/Meta) | | | | | |
+| Social Media (organic) | | | | | |
+| Content Marketing | | | | | |
+| Email Marketing | | | | | |
+| Referral / Word-of-mouth | | | | | |
+| Partnership | | | | | |
+| Offline events | | | | | |
+
+## Funnel Impact Projection
+| Stage | Baseline (hiện tại) | Target sau campaign | Delta |
+|-------|-------------------|-------------------|-------|
+| Visitors / Reach | | | |
+| Leads / Signups | | | |
+| Activated | | | |
+| Paying customers | | | |
+| Repeat / Upsell | | | |
+
+## Sales Alignment (nếu Sales-led hoặc Hybrid)
+- Pipeline stage được hỗ trợ: [Prospect / Qualified / Proposal / Negotiation]
+- Mục tiêu deals mới vào pipeline: [X deals]
+- Tác động kỳ vọng lên win rate: [+X%]
+- Handoff process Marketing → Sales: [Mô tả]
+
+## Content Calendar
+| Ngày | Channel | Content / Format | Owner | Status |
+|------|---------|-----------------|-------|--------|
+| | | | | Draft |
+
+## Success Metrics
+| Metric | Baseline | Target | Đo bằng gì |
+|--------|----------|--------|-----------|
+| Leads/tháng | [từ 06-data] | | |
+| CAC | [từ 06-data] | | |
+| Conversion rate (Leads → Paying) | [từ 06-data] | | |
+| ROI | [từ 06-data] | | |
+
+## Risk & Contingency
+| Risk | Khả năng xảy ra | Plan B |
+|------|----------------|--------|
+| | | |
+
+## Budget Justification
+- Expected ROI: [X lần / X%]
+- Break-even: [Số leads / deals cần để hòa vốn]
+- So sánh với CAC baseline kênh tương tự: [Tốt hơn / Tương đương / Cần justify]
+```
+
+## Bước 5: Lưu & Thông báo
+- Lưu vào `operations/campaigns/YYYY-MM-[campaign-name].md`
+- Nhắc Marketing Manager share với BO để approve budget trước khi chạy
+- Nếu campaign ảnh hưởng Sales pipeline → share với Sales Manager
+
+## Quy tắc bắt buộc
+- Mỗi campaign PHẢI có measurable target với baseline rõ ràng
+- Budget allocation PHẢI justify bằng expected ROI so với CAC baseline
+- Messaging PHẢI consistent với brand guidelines trong `strategy/`
+- Kênh mới (chưa có trong `data/06-...`) cần thêm bước test nhỏ trước khi full budget
+- Campaign ảnh hưởng Sales cycle phải có mục Sales Alignment đầy đủ

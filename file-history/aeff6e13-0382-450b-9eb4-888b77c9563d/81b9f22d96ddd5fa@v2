@@ -1,0 +1,148 @@
+# Skill: Phân tích dữ liệu (Data Analysis)
+
+> Quy trình chuẩn mà AI áp dụng mỗi khi Kacey yêu cầu phân tích dữ liệu.
+> Luôn giải thích từng bước bằng ngôn ngữ đơn giản, không dùng thuật ngữ kỹ thuật khi không cần.
+
+---
+
+## 1. Quy trình phân tích (5 bước)
+
+### Bước 1: Thu thập & Hiểu dữ liệu
+- Đọc toàn bộ dữ liệu liên quan từ `data/` và `data/operational/`
+- Xác định: dữ liệu có gì, thiếu gì, chất lượng ra sao
+- Hỏi Kacey nếu cần thêm context hoặc dữ liệu bổ sung
+- **Output:** Tóm tắt ngắn gọn "mình có gì để phân tích"
+
+### Bước 2: Xác định câu hỏi cần trả lời
+- Hiểu rõ Kacey muốn biết điều gì
+- Đặt lại câu hỏi rõ ràng bằng ngôn ngữ đơn giản
+- Chia thành các câu hỏi nhỏ nếu vấn đề phức tạp
+- **Output:** Danh sách câu hỏi mình sẽ trả lời
+
+### Bước 3: Phân tích
+- Áp dụng framework phù hợp (xem mục 2 bên dưới)
+- So sánh số liệu theo thời gian (tăng/giảm/ổn định)
+- Tìm patterns (xu hướng lặp lại)
+- Tìm anomalies (điểm bất thường)
+- Liên kết giữa các bộ dữ liệu khác nhau
+- **Output:** Các phát hiện chính
+
+### Bước 4: Đưa ra Insight
+- Insight = "Dữ liệu cho thấy điều gì QUAN TRỌNG mà có thể bạn chưa biết"
+- Mỗi insight phải trả lời: "Rồi sao? Điều này ảnh hưởng gì đến sản phẩm/kinh doanh?"
+- Xếp hạng insight theo mức độ quan trọng
+- **Output:** Top 3-5 insight quan trọng nhất
+
+### Bước 5: Đề xuất hành động
+- Mỗi insight phải kèm ít nhất 1 đề xuất cụ thể
+- Đề xuất phải actionable (làm được ngay, không mơ hồ)
+- Ưu tiên theo: Impact cao + Effort thấp trước
+- **Output:** Bảng đề xuất với mức ưu tiên
+
+---
+
+## 2. Các framework phân tích
+
+### 2.1 Phân tích Sản phẩm (Product Metrics)
+| Metric | Ý nghĩa đơn giản | Benchmark tốt |
+|--------|-------------------|---------------|
+| DAU/MAU | Bao nhiêu người dùng mỗi ngày/tháng | Tăng đều |
+| Retention | Bao nhiêu % người quay lại dùng tiếp | >40% D7, >20% D30 |
+| Churn rate | Bao nhiêu % người bỏ đi | <5%/tháng |
+| NPS | Khách hàng có giới thiệu mình cho người khác không | >50 là tốt |
+| Activation rate | Bao nhiêu % người mới thực sự dùng sản phẩm | >25% |
+| Feature adoption | Tính năng nào được dùng nhiều/ít | Top features = core value |
+
+### 2.2 Phân tích Kinh doanh (Business Metrics)
+| Metric | Ý nghĩa đơn giản | Cách đọc |
+|--------|-------------------|----------|
+| MRR/ARR | Doanh thu hàng tháng/năm | Cần tăng đều |
+| CAC | Chi phí để có 1 khách hàng | Càng thấp càng tốt |
+| LTV | Tổng tiền 1 khách hàng trả trong suốt vòng đời | Càng cao càng tốt |
+| LTV/CAC | Tỷ lệ giữa giá trị khách hàng và chi phí | >3 là lành mạnh |
+| Burn rate | Đốt bao nhiêu tiền mỗi tháng | Phải kiểm soát |
+| Runway | Còn đủ tiền chạy bao lâu | >12 tháng là an toàn |
+| Gross margin | Lợi nhuận gộp (%) | >60% cho SaaS |
+
+### 2.3 Phân tích Marketing & Sales
+| Metric | Ý nghĩa đơn giản | Cách đọc |
+|--------|-------------------|----------|
+| Conversion rate | Bao nhiêu % người mua hàng sau khi tìm hiểu | Càng cao càng tốt |
+| Funnel drop-off | Người rời bỏ ở bước nào | Tìm chỗ "rò rỉ" lớn nhất |
+| Channel ROI | Kênh nào mang lại khách hiệu quả nhất | Đổ tiền vào kênh ROI cao |
+| Win rate | Bao nhiêu % deal thắng | >25% là OK |
+| Sales cycle | Mất bao lâu để chốt deal | Càng ngắn càng tốt |
+| Pipeline value | Tổng giá trị deal đang chạy | Cần >3x target |
+
+### 2.4 Phân tích Feedback & Khách hàng
+- **Phân loại theo chủ đề**: Gom feedback thành nhóm (UX, tính năng, giá, support...)
+- **Tần suất**: Vấn đề nào được nhắc nhiều nhất = ưu tiên cao
+- **Sentiment**: Tích cực / Tiêu cực / Trung lập
+- **Impact mapping**: Feedback nào ảnh hưởng đến retention/revenue nhiều nhất
+
+### 2.5 Phân tích So sánh (Competitive Analysis)
+- So sánh tính năng (feature matrix)
+- So sánh giá (pricing comparison)
+- So sánh định vị (positioning map)
+- Tìm khoảng trống thị trường (market gaps)
+
+---
+
+## 3. Format output chuẩn
+
+Mỗi bài phân tích sẽ có cấu trúc:
+
+```
+# [Tên phân tích]
+**Ngày:** YYYY-MM-DD
+**Yêu cầu từ Kacey:** [Ghi lại câu hỏi gốc]
+**Dữ liệu sử dụng:** [Liệt kê nguồn]
+
+## Tóm tắt nhanh (30 giây đọc)
+- 3-5 bullet points quan trọng nhất
+
+## Phân tích chi tiết
+[Theo từng câu hỏi/chủ đề]
+
+## Insight
+1. [Insight 1] → Ảnh hưởng: [gì]
+2. [Insight 2] → Ảnh hưởng: [gì]
+3. [Insight 3] → Ảnh hưởng: [gì]
+
+## Đề xuất hành động
+| # | Đề xuất | Lý do | Ưu tiên | Effort |
+|---|---------|-------|---------|--------|
+| 1 | | | Cao/TB/Thấp | Ít/TB/Nhiều |
+
+## Cần thêm dữ liệu
+[Liệt kê nếu cần data bổ sung để phân tích sâu hơn]
+```
+
+---
+
+## 4. Nguồn dữ liệu trong project
+
+| Nguồn | Đường dẫn | Loại dữ liệu |
+|-------|-----------|---------------|
+| Tổng quan kinh doanh | `data/01-business-overview.md` | Revenue, users, funding |
+| Thị trường & đối thủ | `data/02-market-and-competitors.md` | Market size, competitors |
+| Sản phẩm hiện tại | `data/03-product-current-state.md` | Features, metrics, PMF |
+| Team | `data/04-team-overview.md` | Team structure, skills |
+| Feedback khách hàng | `data/05-customer-feedback.md` | Reviews, complaints |
+| Marketing & Sales | `data/06-marketing-sales-current.md` | Channels, funnel, pipeline |
+| Mục tiêu & Vision | `data/07-goals-and-vision.md` | Goals, constraints |
+| Data vận hành tuần/tháng | `data/operational/[role]/` | Metrics theo từng bộ phận |
+| Feature proposals | `data/feature-proposals/` | Đề xuất tính năng |
+| Feedback analysis | `data/feedback-analysis/` | Phân tích feedback đã làm |
+| Deals | `data/deals/` | Thông tin deal Sales |
+
+---
+
+## 5. Nguyên tắc quan trọng
+
+1. **Dữ liệu trước, ý kiến sau** — Mọi nhận định phải dựa trên số liệu cụ thể
+2. **Nói "không biết" khi thiếu data** — Không bịa số, không đoán mò
+3. **So sánh mới có giá trị** — Một con số đơn lẻ không nói lên gì, cần so sánh với: thời điểm trước, benchmark ngành, mục tiêu đã đặt
+4. **Insight phải actionable** — Nếu biết rồi mà không làm gì được thì chưa phải insight tốt
+5. **Đơn giản hóa** — Trình bày kết quả bằng ngôn ngữ mà người không chuyên cũng hiểu
+6. **Ghi rõ giới hạn** — Phân tích này đúng trong phạm vi nào, có bias gì không

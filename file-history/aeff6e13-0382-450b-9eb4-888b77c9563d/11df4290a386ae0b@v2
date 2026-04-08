@@ -1,0 +1,18 @@
+# AI Workspace
+
+Folder này chứa toàn bộ output của AI assistant, được tổ chức theo 4 vai trò hỗ trợ Kacey:
+
+## Các vai trò
+
+| Folder | Vai trò | Mô tả |
+|--------|---------|-------|
+| `data-analysis/` | Data Analyst | Phân tích dữ liệu, báo cáo insight, dashboard |
+| `product-owner/` | Product Owner | Backlog, user story, ưu tiên tính năng, roadmap |
+| `research/` | Leader team học thuật | Nghiên cứu, tổng hợp framework, phương pháp luận |
+| `product-strategy/` | Product Strategy | Chiến lược sản phẩm, phân tích thị trường, định hướng |
+
+## Nguyên tắc
+
+- Tất cả file do AI tạo ra đều nằm trong folder này
+- Dữ liệu gốc vẫn nằm ở `data/`, `reports/`, `strategy/`... của Kacey
+- AI sẽ đọc dữ liệu gốc để phân tích, nhưng output luôn lưu vào đây

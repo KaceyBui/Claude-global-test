@@ -1,0 +1,108 @@
+import { BetaAnalyticsDataClient } from "@google-analytics/data";
+import { google } from "google-auth-library";
+
+export interface GA4Config {
+  propertyId: string;
+  credentialsPath: string;
+}
+
+export interface ReportRequest {
+  startDate: string;
+  endDate: string;
+  dimensions?: string[];
+  metrics?: string[];
+  limit?: number;
+  orderBy?: string;
+  orderDesc?: boolean;
+}
+
+export class GA4Client {
+  private client: BetaAnalyticsDataClient;
+  private propertyId: string;
+
+  constructor(config: GA4Config) {
+    this.propertyId = config.propertyId;
+    this.client = new BetaAnalyticsDataClient({
+      keyFilename: config.credentialsPath,
+    });
+  }
+
+  async runReport(request: ReportRequest) {
+    const dimensions = (request.dimensions ?? ["date"]).map((name) => ({
+      name,
+    }));
+    const metrics = (
+      request.metrics ?? ["sessions", "totalUsers", "screenPageViews"]
+    ).map((name) => ({ name }));
+
+    const orderBys = request.orderBy
+      ? [
+          {
+            dimension: dimensions.find((d) => d.name === request.orderBy)
+              ? { dimensionName: request.orderBy }
+              : undefined,
+            metric: metrics.find((m) => m.name === request.orderBy)
+              ? { metricName: request.orderBy }
+              : undefined,
+            desc: request.orderDesc ?? true,
+          },
+        ]
+      : undefined;
+
+    const [response] = await this.client.runReport({
+      property: `properties/${this.propertyId}`,
+      dateRanges: [
+        { startDate: request.startDate, endDate: request.endDate },
+      ],
+      dimensions,
+      metrics,
+      limit: request.limit ?? 10,
+      orderBys,
+    });
+
+    return this.formatResponse(response, dimensions, metrics);
+  }
+
+  async getRealtimeReport(metrics?: string[], dimensions?: string[]) {
+    const metricsArr = (metrics ?? ["activeUsers"]).map((name) => ({ name }));
+    const dimensionsArr = (dimensions ?? []).map((name) => ({ name }));
+
+    const [response] = await this.client.runRealtimeReport({
+      property: `properties/${this.propertyId}`,
+      metrics: metricsArr,
+      dimensions: dimensionsArr.length > 0 ? dimensionsArr : undefined,
+    });
+
+    return this.formatResponse(response, dimensionsArr, metricsArr);
+  }
+
+  private formatResponse(
+    response: any,
+    dimensions: { name: string }[],
+    metrics: { name: string }[]
+  ) {
+    const headers = [
+      ...dimensions.map((d) => d.name),
+      ...metrics.map((m) => m.name),
+    ];
+
+    const rows =
+      response.rows?.map((row: any) => {
+        const values: Record<string, string> = {};
+        row.dimensionValues?.forEach((val: any, i: number) => {
+          values[dimensions[i].name] = val.value ?? "";
+        });
+        row.metricValues?.forEach((val: any, i: number) => {
+          values[metrics[i].name] = val.value ?? "";
+        });
+        return values;
+      }) ?? [];
+
+    return {
+      headers,
+      rows,
+      rowCount: response.rowCount ?? 0,
+      metadata: response.metadata,
+    };
+  }
+}

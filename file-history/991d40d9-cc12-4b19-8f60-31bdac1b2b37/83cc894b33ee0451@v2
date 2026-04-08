@@ -1,0 +1,376 @@
+#!/usr/bin/env node
+
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import { GA4Client } from "./ga4-client.js";
+
+const CREDENTIALS_PATH = process.env.GA4_CREDENTIALS_PATH ?? "";
+const PROPERTY_ID = process.env.GA4_PROPERTY_ID ?? "";
+
+if (!CREDENTIALS_PATH || !PROPERTY_ID) {
+  console.error(
+    "Error: GA4_CREDENTIALS_PATH and GA4_PROPERTY_ID environment variables are required."
+  );
+  process.exit(1);
+}
+
+const ga4 = new GA4Client({
+  propertyId: PROPERTY_ID,
+  credentialsPath: CREDENTIALS_PATH,
+});
+
+const server = new McpServer({
+  name: "ga4-reporting",
+  version: "1.0.0",
+});
+
+// Tool 1: Báo cáo tổng quan traffic
+server.tool(
+  "ga4_traffic_overview",
+  "Lấy báo cáo tổng quan traffic: sessions, users, pageviews, bounce rate theo khoảng thời gian",
+  {
+    startDate: z
+      .string()
+      .describe("Ngày bắt đầu (YYYY-MM-DD hoặc '7daysAgo', '30daysAgo')"),
+    endDate: z
+      .string()
+      .describe("Ngày kết thúc (YYYY-MM-DD hoặc 'today', 'yesterday')"),
+    groupBy: z
+      .enum(["date", "yearMonth", "yearWeek"])
+      .optional()
+      .describe("Nhóm theo ngày/tuần/tháng (mặc định: date)"),
+  },
+  async ({ startDate, endDate, groupBy }) => {
+    const result = await ga4.runReport({
+      startDate,
+      endDate,
+      dimensions: [groupBy ?? "date"],
+      metrics: [
+        "sessions",
+        "totalUsers",
+        "newUsers",
+        "screenPageViews",
+        "bounceRate",
+        "averageSessionDuration",
+        "engagedSessions",
+      ],
+      orderBy: groupBy ?? "date",
+      orderDesc: false,
+      limit: 100,
+    });
+
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: formatTable("📊 Báo cáo tổng quan Traffic", result),
+        },
+      ],
+    };
+  }
+);
+
+// Tool 2: Báo cáo nguồn traffic
+server.tool(
+  "ga4_traffic_sources",
+  "Phân tích nguồn traffic: source/medium, campaign, referral",
+  {
+    startDate: z.string().describe("Ngày bắt đầu"),
+    endDate: z.string().describe("Ngày kết thúc"),
+    dimension: z
+      .enum([
+        "sessionSource",
+        "sessionMedium",
+        "sessionSourceMedium",
+        "sessionCampaignName",
+        "sessionDefaultChannelGroup",
+      ])
+      .optional()
+      .describe("Chiều phân tích (mặc định: sessionSourceMedium)"),
+    limit: z.number().optional().describe("Số dòng tối đa (mặc định: 20)"),
+  },
+  async ({ startDate, endDate, dimension, limit }) => {
+    const result = await ga4.runReport({
+      startDate,
+      endDate,
+      dimensions: [dimension ?? "sessionSourceMedium"],
+      metrics: [
+        "sessions",
+        "totalUsers",
+        "engagedSessions",
+        "bounceRate",
+        "averageSessionDuration",
+        "conversions",
+      ],
+      orderBy: "sessions",
+      orderDesc: true,
+      limit: limit ?? 20,
+    });
+
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: formatTable("🔗 Báo cáo nguồn Traffic", result),
+        },
+      ],
+    };
+  }
+);
+
+// Tool 3: Báo cáo top pages
+server.tool(
+  "ga4_top_pages",
+  "Lấy danh sách các trang được xem nhiều nhất",
+  {
+    startDate: z.string().describe("Ngày bắt đầu"),
+    endDate: z.string().describe("Ngày kết thúc"),
+    limit: z.number().optional().describe("Số trang tối đa (mặc định: 20)"),
+    pathFilter: z
+      .string()
+      .optional()
+      .describe("Lọc theo đường dẫn URL (chứa chuỗi này)"),
+  },
+  async ({ startDate, endDate, limit, pathFilter }) => {
+    const result = await ga4.runReport({
+      startDate,
+      endDate,
+      dimensions: ["pagePath", "pageTitle"],
+      metrics: [
+        "screenPageViews",
+        "totalUsers",
+        "averageSessionDuration",
+        "bounceRate",
+        "engagedSessions",
+      ],
+      orderBy: "screenPageViews",
+      orderDesc: true,
+      limit: limit ?? 20,
+    });
+
+    if (pathFilter) {
+      result.rows = result.rows.filter((row: any) =>
+        row.pagePath?.includes(pathFilter)
+      );
+    }
+
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: formatTable("📄 Top Pages", result),
+        },
+      ],
+    };
+  }
+);
+
+// Tool 4: Báo cáo events
+server.tool(
+  "ga4_events",
+  "Lấy báo cáo các sự kiện (events) trên website",
+  {
+    startDate: z.string().describe("Ngày bắt đầu"),
+    endDate: z.string().describe("Ngày kết thúc"),
+    eventFilter: z.string().optional().describe("Lọc theo tên event"),
+    limit: z.number().optional().describe("Số event tối đa (mặc định: 20)"),
+  },
+  async ({ startDate, endDate, eventFilter, limit }) => {
+    const result = await ga4.runReport({
+      startDate,
+      endDate,
+      dimensions: ["eventName"],
+      metrics: ["eventCount", "totalUsers", "eventCountPerUser"],
+      orderBy: "eventCount",
+      orderDesc: true,
+      limit: limit ?? 20,
+    });
+
+    if (eventFilter) {
+      result.rows = result.rows.filter((row: any) =>
+        row.eventName?.toLowerCase().includes(eventFilter.toLowerCase())
+      );
+    }
+
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: formatTable("⚡ Báo cáo Events", result),
+        },
+      ],
+    };
+  }
+);
+
+// Tool 5: Báo cáo nhân khẩu học
+server.tool(
+  "ga4_demographics",
+  "Phân tích người dùng theo quốc gia, thiết bị, ngôn ngữ",
+  {
+    startDate: z.string().describe("Ngày bắt đầu"),
+    endDate: z.string().describe("Ngày kết thúc"),
+    dimension: z
+      .enum([
+        "country",
+        "city",
+        "deviceCategory",
+        "operatingSystem",
+        "browser",
+        "language",
+      ])
+      .optional()
+      .describe("Chiều phân tích (mặc định: country)"),
+    limit: z.number().optional().describe("Số dòng tối đa (mặc định: 20)"),
+  },
+  async ({ startDate, endDate, dimension, limit }) => {
+    const result = await ga4.runReport({
+      startDate,
+      endDate,
+      dimensions: [dimension ?? "country"],
+      metrics: [
+        "totalUsers",
+        "sessions",
+        "engagedSessions",
+        "bounceRate",
+        "averageSessionDuration",
+      ],
+      orderBy: "totalUsers",
+      orderDesc: true,
+      limit: limit ?? 20,
+    });
+
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: formatTable("🌍 Báo cáo Demographics", result),
+        },
+      ],
+    };
+  }
+);
+
+// Tool 6: Realtime report
+server.tool(
+  "ga4_realtime",
+  "Xem dữ liệu realtime: người dùng đang hoạt động ngay bây giờ",
+  {
+    dimension: z
+      .enum([
+        "city",
+        "country",
+        "deviceCategory",
+        "unifiedScreenName",
+        "unifiedPagePathScreen",
+      ])
+      .optional()
+      .describe("Chiều phân tích realtime (mặc định: không nhóm)"),
+  },
+  async ({ dimension }) => {
+    const result = await ga4.getRealtimeReport(
+      ["activeUsers"],
+      dimension ? [dimension] : undefined
+    );
+
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: formatTable("🔴 Realtime Report", result),
+        },
+      ],
+    };
+  }
+);
+
+// Tool 7: Custom report - linh hoạt
+server.tool(
+  "ga4_custom_report",
+  "Tạo báo cáo tùy chỉnh với bất kỳ dimensions và metrics nào từ GA4",
+  {
+    startDate: z.string().describe("Ngày bắt đầu"),
+    endDate: z.string().describe("Ngày kết thúc"),
+    dimensions: z
+      .array(z.string())
+      .describe(
+        "Danh sách dimensions (vd: ['date', 'country', 'sessionSourceMedium'])"
+      ),
+    metrics: z
+      .array(z.string())
+      .describe(
+        "Danh sách metrics (vd: ['sessions', 'totalUsers', 'bounceRate'])"
+      ),
+    orderBy: z.string().optional().describe("Sắp xếp theo field"),
+    orderDesc: z.boolean().optional().describe("Sắp xếp giảm dần"),
+    limit: z.number().optional().describe("Số dòng tối đa"),
+  },
+  async ({ startDate, endDate, dimensions, metrics, orderBy, orderDesc, limit }) => {
+    const result = await ga4.runReport({
+      startDate,
+      endDate,
+      dimensions,
+      metrics,
+      orderBy,
+      orderDesc,
+      limit,
+    });
+
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: formatTable("📋 Custom Report", result),
+        },
+      ],
+    };
+  }
+);
+
+// Helper: format kết quả dạng bảng
+function formatTable(
+  title: string,
+  result: { headers: string[]; rows: Record<string, string>[]; rowCount: number }
+): string {
+  if (result.rows.length === 0) {
+    return `${title}\n\nKhông có dữ liệu cho khoảng thời gian này.`;
+  }
+
+  const headers = result.headers;
+  const lines: string[] = [title, ""];
+
+  // Header row
+  lines.push("| " + headers.join(" | ") + " |");
+  lines.push("| " + headers.map(() => "---").join(" | ") + " |");
+
+  // Data rows
+  for (const row of result.rows) {
+    const values = headers.map((h) => {
+      const val = row[h] ?? "";
+      // Format numbers
+      if (/^\d+\.\d+$/.test(val)) {
+        return parseFloat(val).toFixed(2);
+      }
+      return val;
+    });
+    lines.push("| " + values.join(" | ") + " |");
+  }
+
+  lines.push("");
+  lines.push(`Tổng số dòng: ${result.rowCount}`);
+
+  return lines.join("\n");
+}
+
+// Start server
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("GA4 MCP Server is running...");
+}
+
+main().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
+});

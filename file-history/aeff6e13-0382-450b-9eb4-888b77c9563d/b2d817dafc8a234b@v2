@@ -1,0 +1,11 @@
+---
+name: Luôn giải thích khi làm việc
+description: Kacey yêu cầu AI luôn giải thích đang làm gì và tại sao, để Kacey hiểu và điều chỉnh AI tốt hơn
+type: feedback
+---
+
+Luôn giải thích rõ ràng mình đang làm gì và tại sao trước/sau khi thực hiện.
+
+**Why:** Kacey không có background lập trình, cần hiểu logic để có thể hướng dẫn và "train" AI ngày càng tốt hơn.
+
+**How to apply:** Mỗi action cần kèm: (1) đang làm gì, (2) tại sao, (3) kết quả. Dùng ngôn ngữ đơn giản, tránh thuật ngữ kỹ thuật.

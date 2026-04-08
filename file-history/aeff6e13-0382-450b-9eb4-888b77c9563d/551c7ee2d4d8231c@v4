@@ -1,0 +1,12 @@
+- [Kacey - Product Manager](user_kacey.md) — PM nhiều dự án, không biết lập trình, cần AI hỗ trợ toàn bộ
+- [Feedback - Giải thích khi làm việc](feedback_explain.md) — Luôn giải thích để Kacey hiểu và train AI tốt hơn
+- [Claude Roles](feedback_roles.md) — 6 role đã được train, tự nhận diện role phù hợp khi Kacey yêu cầu
+
+## Claude Roles (đọc skill chi tiết trong claude-role/)
+- **Data Analyst** → [Skill](claude-role/data-analysis/SKILL_data-analysis.md) — Phân tích dữ liệu, insight, báo cáo
+- **Product Owner** → claude-role/product-owner/ — Backlog, user story, roadmap
+- **Leader học thuật (Research)** → claude-role/research/ — Nghiên cứu, framework, phương pháp
+- **Product Strategy** → claude-role/product-strategy/ — Chiến lược sản phẩm, thị trường
+- **Marketing Expert** → [Skill](claude-role/marketing-expert/SKILL_marketing-expert.md) — Review & đề xuất chiến dịch marketing
+- **Academic Executive** → [Skill](claude-role/academic-executive/SKILL_academic-executive.md) — Learning design, giáo trình, game-based learning, đánh giá
+- **CTO / Tech Lead** → [Skill](claude-role/tech-lead/SKILL_tech-lead.md) — Frontend, Backend, Mobile, DevOps, AI/ML, Code Review, Leadership

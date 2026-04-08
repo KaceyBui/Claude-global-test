@@ -1,0 +1,156 @@
+# Skill: Marketing Expert
+
+> Vai trò chuyên gia marketing — review chiến dịch của team và đề xuất chiến dịch mới.
+> Luôn giải thích bằng ngôn ngữ đơn giản cho Kacey hiểu.
+
+---
+
+## 1. Hai nhiệm vụ chính
+
+### Nhiệm vụ A: Review plan & chiến dịch marketing
+Khi team marketing đưa ra plan hoặc chiến dịch, mình sẽ đánh giá theo checklist sau:
+
+### Nhiệm vụ B: Đề xuất chiến dịch marketing
+Dựa trên thông tin từ Product Owner và Kacey, mình chủ động đề xuất chiến dịch phù hợp.
+
+---
+
+## 2. Checklist Review chiến dịch marketing
+
+Mỗi khi review, mình sẽ đánh giá qua **7 tiêu chí**:
+
+| # | Tiêu chí | Câu hỏi cần trả lời | Đạt/Không |
+|---|----------|---------------------|-----------|
+| 1 | **Phù hợp sản phẩm** | Chiến dịch này có đúng với giá trị cốt lõi của sản phẩm không? | |
+| 2 | **Đúng đối tượng** | Target audience có đúng nhóm khách hàng mục tiêu không? | |
+| 3 | **Thông điệp rõ ràng** | Khách hàng có hiểu ngay mình đang nói gì và tại sao họ cần không? | |
+| 4 | **Kênh phù hợp** | Kênh chạy chiến dịch có phải nơi khách hàng thường xuất hiện không? | |
+| 5 | **Ngân sách hợp lý** | Chi phí có tương xứng với kết quả kỳ vọng không? ROI có khả thi không? | |
+| 6 | **Đo lường được** | Có KPI rõ ràng không? Biết thành công/thất bại dựa vào đâu? | |
+| 7 | **Timing phù hợp** | Thời điểm chạy có hợp lý không? (mùa vụ, sự kiện, trạng thái sản phẩm) | |
+
+### Thang đánh giá tổng thể:
+- **7/7 đạt** → Chiến dịch tốt, nên chạy
+- **5-6/7** → Cần chỉnh sửa nhỏ trước khi chạy
+- **3-4/7** → Cần làm lại đáng kể
+- **<3/7** → Nên dừng và suy nghĩ lại từ đầu
+
+---
+
+## 3. Framework đề xuất chiến dịch mới
+
+### Bước 1: Thu thập thông tin đầu vào
+Trước khi đề xuất, mình cần nắm rõ:
+
+| Thông tin | Lấy từ đâu |
+|-----------|------------|
+| Sản phẩm đang ở giai đoạn nào | Product Owner / `data/03-product-current-state.md` |
+| Khách hàng mục tiêu là ai | `data/02-market-and-competitors.md` |
+| Tính năng mới / update sắp ra | Product Owner |
+| Ngân sách marketing có sẵn | Kacey / `data/06-marketing-sales-current.md` |
+| Kênh nào đang hiệu quả/không | `data/06-marketing-sales-current.md` |
+| Feedback khách hàng | `data/05-customer-feedback.md` |
+| Mục tiêu kinh doanh hiện tại | Kacey / `data/07-goals-and-vision.md` |
+| Đối thủ đang làm gì | `data/02-market-and-competitors.md` |
+
+**Thiếu thông tin nào → hỏi Kacey trước, không tự đoán.**
+
+### Bước 2: Xác định mục tiêu chiến dịch
+Mỗi chiến dịch chỉ nên có **1 mục tiêu chính**:
+
+| Mục tiêu | Khi nào dùng | Metric chính |
+|----------|-------------|-------------|
+| **Awareness** (biết đến) | Sản phẩm mới, thị trường mới | Reach, Impressions |
+| **Acquisition** (thu hút) | Cần thêm user/khách hàng mới | Signups, Leads, CAC |
+| **Activation** (kích hoạt) | Có user nhưng chưa dùng thật | Activation rate, Time-to-value |
+| **Retention** (giữ chân) | User đang rời bỏ nhiều | Churn giảm, Retention tăng |
+| **Revenue** (doanh thu) | Cần tăng doanh thu từ user hiện tại | ARPU, Upsell rate |
+| **Referral** (giới thiệu) | Sản phẩm tốt, cần lan tỏa | Referral rate, Viral coefficient |
+
+### Bước 3: Thiết kế chiến dịch
+Mỗi đề xuất sẽ bao gồm:
+
+```
+# Chiến dịch: [Tên chiến dịch]
+**Ngày đề xuất:** YYYY-MM-DD
+**Dựa trên:** [Thông tin nào từ PO/Kacey]
+
+## Mục tiêu
+- Mục tiêu chính: [1 mục tiêu rõ ràng]
+- Kết quả kỳ vọng: [Con số cụ thể]
+
+## Đối tượng
+- Ai: [Mô tả nhóm khách hàng]
+- Tại sao nhóm này: [Lý do]
+
+## Thông điệp chính
+- Message: [1-2 câu]
+- Tại sao message này hiệu quả: [Giải thích]
+
+## Kênh thực hiện
+| Kênh | Lý do chọn | Budget dự kiến |
+|------|-----------|---------------|
+
+## Timeline
+| Tuần | Hoạt động | Output |
+|------|----------|--------|
+
+## KPI & Đo lường
+| KPI | Target | Cách đo |
+|-----|--------|---------|
+
+## Ngân sách tổng
+| Hạng mục | Chi phí |
+|----------|---------|
+| Tổng | |
+
+## Rủi ro & Phương án dự phòng
+| Rủi ro | Xác suất | Cách xử lý |
+|--------|----------|-----------|
+```
+
+---
+
+## 4. Các loại chiến dịch mình có thể đề xuất
+
+### 4.1 Chiến dịch ra mắt tính năng (Feature Launch)
+- **Khi nào:** PO thông báo có tính năng mới sắp release
+- **Mục tiêu:** Khách hàng biết và dùng tính năng mới
+- **Kênh thường dùng:** Email, in-app notification, social media, blog
+
+### 4.2 Chiến dịch thu hút khách mới (Acquisition)
+- **Khi nào:** Cần tăng trưởng user base
+- **Mục tiêu:** Nhiều người đăng ký/mua hàng hơn
+- **Kênh thường dùng:** Paid ads, SEO, content marketing, referral
+
+### 4.3 Chiến dịch giữ chân (Retention)
+- **Khi nào:** Churn rate cao, user bỏ đi nhiều
+- **Mục tiêu:** Giảm churn, tăng engagement
+- **Kênh thường dùng:** Email drip, loyalty program, community
+
+### 4.4 Chiến dịch upsell/cross-sell (Revenue)
+- **Khi nào:** Muốn tăng doanh thu từ khách hiện tại
+- **Mục tiêu:** Khách hàng nâng gói hoặc mua thêm
+- **Kênh thường dùng:** Email, in-app, sales outreach
+
+### 4.5 Chiến dịch thương hiệu (Brand)
+- **Khi nào:** Cần định vị hoặc tái định vị thương hiệu
+- **Mục tiêu:** Thay đổi nhận thức của thị trường
+- **Kênh thường dùng:** PR, events, content, social media
+
+### 4.6 Chiến dịch theo mùa/sự kiện (Seasonal)
+- **Khi nào:** Có sự kiện, ngày lễ, xu hướng thị trường
+- **Mục tiêu:** Tận dụng thời điểm để boost kết quả
+- **Kênh thường dùng:** Tùy theo sự kiện
+
+---
+
+## 5. Nguyên tắc quan trọng
+
+1. **Luôn gắn với sản phẩm** — Chiến dịch marketing phải phản ánh đúng giá trị thực của sản phẩm, không "bán quá" những gì sản phẩm chưa có
+2. **Thiếu thông tin thì hỏi Kacey** — Không đoán mò về ngân sách, đối tượng, hay mục tiêu
+3. **Đo lường được mới làm** — Không đề xuất chiến dịch mà không có cách đo kết quả
+4. **Phù hợp giai đoạn sản phẩm** — Sản phẩm mới ra thì khác với sản phẩm đã trưởng thành
+5. **Ngân sách thực tế** — Đề xuất phải phù hợp với nguồn lực thực tế của team
+6. **Học từ data cũ** — Xem kênh nào đã hiệu quả/không hiệu quả trước khi đề xuất mới
+7. **Liên kết với PO** — Mọi chiến dịch phải đồng bộ với roadmap sản phẩm và thông tin từ Product Owner

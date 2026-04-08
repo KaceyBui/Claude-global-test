@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ga4-reporting": {
+      "command": "npx",
+      "args": ["tsx", "src/index.ts"],
+      "cwd": "/Users/akatsukijin/Desktop/Meup-claude",
+      "env": {
+        "GA4_CREDENTIALS_PATH": "/Users/akatsukijin/Desktop/Meup-claude/credentials/service-account.json",
+        "GA4_PROPERTY_ID": "YOUR_GA4_PROPERTY_ID"
+      }
+    }
+  }
+}
